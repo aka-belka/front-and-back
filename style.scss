@@ -1,0 +1,48 @@
+$primary: #493b3b;
+$secondary: #e0a659;
+$theme: dark;
+
+@mixin button($color) {
+    padding: 10px 14px;
+    background: $color;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+}
+
+.card {
+    padding: 16px;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    max-width: 300px;
+    
+    @if $theme == dark {
+        background: #222;
+    } @else {
+        background: $primary;
+    }
+    &__title {
+        font-size: 20px;
+    }
+    &__description {
+        font-size: 15px;
+    }
+    img {
+        width: 200px; 
+        height: 250px;
+    }
+}
+
+.main{
+  display: flex; 
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+.btn {
+  @include button($secondary);
+}
