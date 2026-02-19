@@ -127,7 +127,7 @@ export default function ProductModal({ open, mode, initialProduct, onClose, onSu
                     </label>
 
                     <div className="modal__footer">
-                        <button type="button" className="btn" onClick={onClose}>
+                        <button type="button" className="btn btn--cancel" onClick={onClose}>
                             Отмена  
                         </button>
                         <button type="submit" className="btn btn--primary">

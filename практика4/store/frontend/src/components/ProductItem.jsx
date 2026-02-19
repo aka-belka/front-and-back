@@ -13,7 +13,7 @@ export default function ProductItem({ product, onEdit, onDelete }) {
             </div>
 
             <div className="productActions">
-                <button className="btn" onClick={() => onEdit(product)}>
+                <button className="btn btn--edit" onClick={() => onEdit(product)}>
                     Редактировать  
                 </button>
                 <button className="btn btn--danger" onClick={() =>onDelete(product.id)}>

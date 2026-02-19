@@ -1,15 +1,20 @@
 
-$bg: #0b0f19;
-$panel: rgba(255, 255, 255, 0.03);
-$border: rgba(255, 255, 255, 0.10);
-$text: #e7eaf3;
+$bg: #c1bab2;
+$panel: #ffffff;
+$border: #f0e6dd; 
+$text: #3b2d1e; 
 
-$primary: rgba(99, 102, 241, 0.55);
-$primaryBg: rgba(99, 102, 241, 0.18);
+$primary: #ee9043;
+$primaryBg: #fff0e0;
 
-$danger: rgba(239, 68, 68, 0.45);
-$dangerBg: rgba(239, 68, 68, 0.12);
+$danger: #b23b3b;
+$dangerBg: #fee2e2;
 
+$edit: #2e7d32;
+$editBg: #e8f5e9;   
+
+$cancel: #64748b;           
+$cancelBg: #f1f5f9;
 @mixin card($radius: 12px) {
     border-radius: $radius;
     border: 1px solid $border;
@@ -32,8 +37,8 @@ $dangerBg: rgba(239, 68, 68, 0.12);
 }
 
 .header {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    background: rgba(255, 255, 255, 0.02);
+    border-bottom: 1px solid $border;
+    background: $panel;
 
     &__inner {
         @include container();
@@ -79,28 +84,66 @@ $dangerBg: rgba(239, 68, 68, 0.12);
 
 // ===== Buttons =====  
 .btn {
-    padding: 8px 10px;
+    padding: 8px 16px; 
+    width: auto;  
     border-radius: 10px;
+    white-space: nowrap;
     border: 1px solid rgba(255, 255, 255, 0.14);
     background: transparent;
     color: inherit;
     cursor: pointer;
+    font-size: 13px;
+    transition: all 0.15s ease;
 
     &--primary {
-        background: $primaryBg;
+        background: $primary;
         border: 1px solid $primary;
+        color: white;
+
+        &:hover {
+            background: darken($primary, 8%);
+        }
     }
 
     &--danger {
         background: $dangerBg;
         border: 1px solid $danger;
+        color: $danger;
+
+        &:hover {
+            background: $danger;
+            color: white;
+        }
+    }
+
+    &--edit {
+        background: $editBg;
+        border: 1px solid $edit;
+        color: $edit;
+
+        &:hover {
+            background: $edit;
+            color: white;
+        }
+    }
+
+    &--cancel {
+        background: $cancelBg;
+        border: 1px solid $cancel;
+        color: $cancel;
+
+        &:hover {
+            background: $cancel;
+            color: white;
+        }
     }
 }
 
 .list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin: 16px 0;
 }
 
 .empty {
@@ -110,45 +153,68 @@ $dangerBg: rgba(239, 68, 68, 0.12);
     opacity: 0.85;
 }
 .productRow {
-    @include card(12px);
+    @include card(16px);
+    padding: 16px;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
     gap: 12px;
-    padding: 12px;
+    transition: all 0.2s ease;
+
+    &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    }
 }
 
 .productMain {
     display: flex;
-    align-items: center;
-    gap: 12px;
-    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 8px;
 
     .productId {
-        opacity: 0.7;
-        font-variant-numeric: tabular-nums;
+        font-size: 12px;
+        color: #80796b;
     }
 
     .productName {
+        font-size: 18px;
         font-weight: 600;
+        margin: 0;
     }
     .productCategory {
-        font-weight: 600;
+        font-size: 13px;
+        background: $primaryBg;
+        color: $primary;
+        padding: 4px 8px;
+        border-radius: 20px;
+        display: inline-block;
+        width: fit-content;
     }
     .productDescription {
-        font-weight: 600;
+        font-size: 14px;
+        color: #635b4b;
+        margin: 4px 0;
+        line-height: 1.4;
     }
     .productPrice {
-        opacity: 0.85;
+        font-size: 20px;
+        font-weight: 700;
+        color: $primary;
+        margin: 8px 0 4px;
     }
     .productQuanity {
-        opacity: 0.85;
+        font-size: 13px;
+        color: #807b6b;
+        display: flex;
+        align-items: center;
+        gap: 4px;
     }
 }
 
 .productActions {
     display: flex;
     gap: 8px;
+    margin-top: auto;
 }
 
 .footer {
@@ -160,6 +226,7 @@ $dangerBg: rgba(239, 68, 68, 0.12);
         padding: 14px 16px;
         opacity: 0.7;
         font-size: 13px;
+        text-align: center;
     }
 }
 
@@ -177,8 +244,8 @@ $dangerBg: rgba(239, 68, 68, 0.12);
     width: 100%;
     max-width: 420px;
     border-radius: 16px;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    background: #0f1526;
+    border: 1px solid $border;
+    background: $panel;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
     overflow: hidden;
 
@@ -230,8 +297,8 @@ $dangerBg: rgba(239, 68, 68, 0.12);
 .input {
     padding: 10px 12px;
     border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    background: rgba(255, 255, 255, 0.04);
-    color: inherit;
+    border: 1px solid $border;
+    background: white;
+    color: $text;
     outline: none;
 }
