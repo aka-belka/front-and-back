@@ -6,6 +6,8 @@ export default function ProductModal({ open, mode, initialProduct, onClose, onSu
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState("");
     const [quantity, setQuantity] = useState("");
+    const [photoFile, setPhotoFile] = useState(null);
+    const [photoUrl, setPhotoUrl] = useState("");
 
     useEffect(() => {
         if (!open) return;
@@ -14,19 +16,32 @@ export default function ProductModal({ open, mode, initialProduct, onClose, onSu
         setDescription(initialProduct?.description ?? "");
         setPrice(initialProduct?.price != null ? String(initialProduct.price) : "");
         setQuantity(initialProduct?.quantity != null ? String(initialProduct.quantity) : "");
+        if (initialProduct?.photo) {
+            setPhotoUrl(`http://localhost:3000${initialProduct.photo}`);
+        } else {
+            setPhotoUrl("");
+        }
+        setPhotoFile(null);
     }, [open, initialProduct]);
 
     if (!open) return null;
+
+    const handlePhotoUpload = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setPhotoFile(file);
+            setPhotoUrl(URL.createObjectURL(file));
+        }
+    };
 
     const title = mode === "edit" ? "Редактирование товара" : "Создание товара";
     
     const handleSubmit = (e) => {
         e.preventDefault();
-
         const trimmedName = name.trim();
         const trimmedCategory = category.trim();
         const trimmedDescription = description.trim();
-        const parsedPrise = Number(price);
+        const parsedPrice = Number(price); 
         const parsedQuantity = Number(quantity);
 
         if (!trimmedName) {
@@ -41,7 +56,7 @@ export default function ProductModal({ open, mode, initialProduct, onClose, onSu
             alert("Введите описание");
             return;
         }
-        if (!Number.isFinite(parsedPrise) || parsedPrise < 0) {
+        if (!Number.isFinite(parsedPrice) || parsedPrice < 0) {
             alert("Введите корректную цену");
             return;
         }
@@ -50,14 +65,27 @@ export default function ProductModal({ open, mode, initialProduct, onClose, onSu
             return;
         }
 
-        onSubmit({
-            id: initialProduct?.id,
-            name: trimmedName,
-            category: trimmedCategory,
-            description: trimmedDescription,
-            price: parsedPrise,
-            quantity: parsedQuantity
-        });
+        if (mode === "create" && !photoFile) {
+            alert("Добавьте фото товара");
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('name', trimmedName);
+        formData.append('category', trimmedCategory);
+        formData.append('description', trimmedDescription);
+        formData.append('price', parsedPrice);
+        formData.append('quantity', parsedQuantity);
+        
+        if (photoFile) {
+            formData.append('photo', photoFile);
+        }
+        
+        if (initialProduct?.id) {
+            formData.append('id', initialProduct.id);
+        }
+        
+        onSubmit(formData)
     };
 
     return (
@@ -92,6 +120,37 @@ export default function ProductModal({ open, mode, initialProduct, onClose, onSu
                             autoFocus
                         />
                     </label>
+                    <div className="photo-section">
+                        <label className="label">
+                            {"Фотография товара"} {mode === "create" }
+                            <div className="photo-preview" style={{display:"flex", flexDirection: 'column', alignItems: 'center', justifyContent: "center"}}>
+                                {photoUrl && (
+                                        <img 
+                                            src={photoUrl} 
+                                            alt={name || "Фото товара"} 
+                                            className="modal-photo"
+                                            style={{width:200, height: 200}}
+                                        />
+                                    
+                                )}
+                                <button 
+                                    className="btn btn--cancel"
+                                    onClick={() => document.getElementById('photo-upload').click()}
+                                    style={{marginTop: '10px', width:130}}
+                                >
+                                    {mode === "edit" ? "Изменить фото" : "Загрузить фото"}
+                                </button>
+                            </div>
+                            <input
+                                id="photo-upload"
+                                type="file"
+                                accept="image/*"
+                                onChange={handlePhotoUpload}
+                                required={mode === "create"}
+                                style={{ display: 'none' }}
+                            />
+                        </label>
+                    </div>
 
                     <label className="label">
                         Описание  

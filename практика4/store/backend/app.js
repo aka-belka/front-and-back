@@ -1,22 +1,26 @@
 const express = require('express');
 const { nanoid } = require('nanoid');
+const path = require('path');
 const app = express();
 
 const port = 3000;
 const cors = require("cors");
 
+const assetsPath = 'D:/фронт и бэк/ФБР/практика4/store/frontend/src/assets';
+app.use('/assets', express.static(assetsPath));
+
 let products = [
-    {id: nanoid(6), name: 'Стакан', category: 'Посуда', description: 'Модель ОФИСМАГ 250 мл, стекло, F&D Бэйзик, производство Россия', price: 97, quantity: 200},
-    {id: nanoid(6), name: 'Супница', category: 'Посуда', description: 'Модель LUMINARC ДИВАЛИ 560 мл, материал опаловое стекло, производство Китай', price: 309, quantity: 10},
-    {id: nanoid(6), name: 'Торшер', category: 'Интерьер', description: 'Модель Uniel светодиодный ulm-t600 2x6w/4500k/dim white, производство Россия', price: 5746, quantity: 136},
-    {id: nanoid(6), name: 'Картина', category: 'Интерьер', description: 'Цветущая сакура на бежевом фоне, размер 96x60 см, производство Россия', price: 3432, quantity: 12},
-    {id: nanoid(6), name: 'Подушка', category: 'Текстиль', description: 'Гипоаллергенная подушка Самойловский Текстиль, размер 50x70 см, цвет белый, производство Россия', price: 494, quantity: 48},
-    {id: nanoid(6), name: 'Шторы', category: 'Текстиль', description: 'Модель "Волшебная Ночь", материал рогожка, размеры 200/270 см, с подхватами, производство Россия', price: 4709, quantity: 84},
-    {id: nanoid(6), name: 'Диван', category: 'Мебель', description: 'Цвет темно-серый двуспальный раскладной, материал каркакса дерево', price: 16411, quantity: 7},
-    {id: nanoid(6), name: 'Стул', category: 'Мебель', description: 'Модель ТК-1 (черный), каркас металлический, обивка рогожка, производство Россия', price: 1780, quantity: 115},
-    {id: nanoid(6), name: 'Микроволновка', category: 'Бытовая техника', description: 'Модель OASIS MW-70MW, мощность 700 Вт, производство Китай', price: 4990, quantity: 118},
-    {id: nanoid(6), name: 'Пылесос', category: 'Бытовая техника', description: 'Модель Karcher WD 3 P S V-17/4/20 1.628-190.0, мощность 1000 Вт, производство Германия', price: 18790, quantity: 110},
-    {id: nanoid(6), name: 'Утюг', category: 'Бытовая техника', description: 'Модель Braun SI7149WB 0127403108, мощность 2900 Вт, производство Китай', price: 8990, quantity: 36}
+    {id: nanoid(6), name: 'Стакан', category: 'Посуда', description: 'Модель ОФИСМАГ 250 мл, стекло, F&D Бэйзик, производство Россия', price: 97, quantity: 200, photo: '/assets/стакан.jpg'},
+    {id: nanoid(6), name: 'Супница', category: 'Посуда', description: 'Модель LUMINARC ДИВАЛИ 560 мл, материал опаловое стекло, производство Китай', price: 309, quantity: 10, photo: '/assets/супница.avif'},
+    {id: nanoid(6), name: 'Торшер', category: 'Интерьер', description: 'Модель Uniel светодиодный ulm-t600 2x6w/4500k/dim white, производство Россия', price: 5746, quantity: 136, photo: '/assets/торшер.avif'},
+    {id: nanoid(6), name: 'Картина', category: 'Интерьер', description: 'Цветущая сакура на бежевом фоне, размер 96x60 см, производство Россия', price: 3432, quantity: 12, photo: '/assets/картина.webp'},
+    {id: nanoid(6), name: 'Подушка', category: 'Текстиль', description: 'Гипоаллергенная подушка Самойловский Текстиль, размер 50x70 см, цвет белый, производство Россия', price: 494, quantity: 48, photo: '/assets/подушка.webp'},
+    {id: nanoid(6), name: 'Шторы', category: 'Текстиль', description: 'Модель "Волшебная Ночь", материал рогожка, размеры 200/270 см, с подхватами, производство Россия', price: 4709, quantity: 84, photo: '/assets/шторы.webp'},
+    {id: nanoid(6), name: 'Диван', category: 'Мебель', description: 'Цвет темно-серый двуспальный раскладной, материал каркакса дерево', price: 16411, quantity: 7, photo: '/assets/диван.webp'},
+    {id: nanoid(6), name: 'Стул', category: 'Мебель', description: 'Модель ТК-1 (черный), каркас металлический, обивка рогожка, производство Россия', price: 1780, quantity: 115, photo: '/assets/стул.webp'},
+    {id: nanoid(6), name: 'Микроволновка', category: 'Бытовая техника', description: 'Модель OASIS MW-70MW, мощность 700 Вт, производство Китай', price: 4990, quantity: 118, photo: '/assets/микроволновка.webp'},
+    {id: nanoid(6), name: 'Пылесос', category: 'Бытовая техника', description: 'Модель Karcher WD 3 P S V-17/4/20 1.628-190.0, мощность 1000 Вт, производство Германия', price: 18790, quantity: 110, photo: '/assets/пылесос.webp'},
+    {id: nanoid(6), name: 'Утюг', category: 'Бытовая техника', description: 'Модель Braun SI7149WB 0127403108, мощность 2900 Вт, производство Китай', price: 8990, quantity: 36, photo: '/assets/утюг.webp'}
 ]
 
 app.use(cors({
@@ -47,7 +51,7 @@ function findUserOr404(id, res) {
 }
 
 app.post("/api/products", (req, res) => {
-    const { name, category, description, price, quantity} = req.body;
+    const { name, category, description, price, quantity, photo} = req.body;
 
     const newProduct = {
         id: nanoid(6),
@@ -55,7 +59,8 @@ app.post("/api/products", (req, res) => {
         category: category.trim(), 
         description: description.trim(), 
         price: Number(price), 
-        quantity: Number(quantity)
+        quantity: Number(quantity),
+        photo: photo
     };
 
     products.push(newProduct);
@@ -84,19 +89,20 @@ app.patch("/api/products/:id", (req, res) => {
     if (!product) return;
 
 
-    if (req.body?.name === undefined && req.body?.category === undefined && req.body?.description === undefined && req.body?.price === undefined && req.body?.quantity === undefined) {
+    if (req.body?.name === undefined && req.body?.category === undefined && req.body?.description === undefined && req.body?.price === undefined && req.body?.quantity === undefined && req.body?.photo === undefined) {
         return res.status(400).json({
             error: "Nothing to update",
         });
     }
 
-    const { name, category, description, price, quantity} = req.body;
+    const { name, category, description, price, quantity, photo} = req.body;
 
     if (name !== undefined) product.name = name.trim();
     if (category !== undefined) product.category = category.trim();
     if (description !== undefined) product.description = description.trim();
     if (price !== undefined) product.price = Number(price);
     if (quantity !== undefined) product.quantity = Number(quantity);
+    if (photo !== undefined) product.photo = photo;
 
     res.json(product);
 });
