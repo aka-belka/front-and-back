@@ -4,17 +4,14 @@ $panel: #ffffff;
 $border: #f0e6dd; 
 $text: #3b2d1e; 
 
-$primary: #ee9043;
-$primaryBg: #fff0e0;
+$primary: #2b8141f3;
+$primaryBg: #e0ffe7;
 
 $danger: #b23b3b;
-$dangerBg: #fee2e2;
 
-$edit: #2e7d32;
-$editBg: #e8f5e9;   
+$edit: #2e7d32;  
 
-$cancel: #64748b;           
-$cancelBg: #f1f5f9;
+$cancel: #64748b;  
 @mixin card($radius: 12px) {
     border-radius: $radius;
     border: 1px solid $border;
@@ -93,7 +90,7 @@ $cancelBg: #f1f5f9;
     color: inherit;
     cursor: pointer;
     font-size: 13px;
-    transition: all 0.15s ease;
+    transition: all 0.2s;
 
     &--primary {
         background: $primary;
@@ -101,40 +98,34 @@ $cancelBg: #f1f5f9;
         color: white;
 
         &:hover {
-            background: darken($primary, 8%);
+            transform: translateY(-2px) ;
         }
     }
 
     &--danger {
-        background: $dangerBg;
         border: 1px solid $danger;
         color: $danger;
 
         &:hover {
-            background: $danger;
-            color: white;
+            transform: translateY(-2px) ;
         }
     }
 
     &--edit {
-        background: $editBg;
         border: 1px solid $edit;
         color: $edit;
 
         &:hover {
-            background: $edit;
-            color: white;
+            transform: translateY(-2px) ;
         }
     }
 
     &--cancel {
-        background: $cancelBg;
         border: 1px solid $cancel;
         color: $cancel;
 
         &:hover {
-            background: $cancel;
-            color: white;
+            transform: translateY(-2px) ;
         }
     }
 }
