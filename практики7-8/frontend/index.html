@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Авторизация</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #256259;
+            color: #e7eaf3;
+        }
+        .container {
+            background: #35ccb54e;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+        }
+        h2 {
+            margin-top: 0;
+            text-align: center;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0 16px;
+            border: 1px solid rgba(149, 41, 41, 0.12);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.04);
+            color: white;
+            box-sizing: border-box;
+        }
+        input::placeholder {
+            color: #a0c0c0; 
+            opacity: 1;  
+        }
+        input:focus {
+            outline: none;  
+            border-color: #98d0d1; 
+            box-shadow: 0 0 5px rgba(152, 208, 209, 0.5); 
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background: rgba(26, 84, 77, 0.507);
+            border: 1px solid rgba(99, 239, 241, 0.55);
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 8px;
+        }
+        button:hover {
+            background: rgba(99, 234, 241, 0.3);
+        }
+        .switch-link {
+            text-align: center;
+            margin-top: 15px;
+            color: #98d0d1;
+            cursor: pointer;
+        }
+        .switch-link:hover {
+            text-decoration: underline;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: none;
+            word-break: break-all;
+        }
+        .profile-info {
+            margin-top: 20px;
+        }
+        .profile-info p {
+            margin: 10px 0;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 8px;
+        }
+        .error {
+            color: #ff6b6b;
+        }
+        .success {
+            color: #4ade80;
+        }
+        .hidden {
+            display: none;
+        }
+        .token-info{
+            margin-top: 15px; 
+            padding: 10px; 
+            background: rgba(255,255,255,0.05);
+            border-radius: 8px; 
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="loginBlock">
+            <h2>Вход</h2>
+            <input type="email" id="loginEmail" placeholder="Email">
+            <input type="password" id="loginPassword" placeholder="Пароль">
+            <button onclick="login()">Войти</button>
+            <div class="switch-link" onclick="showRegister()">Нет аккаунта? Зарегистрироваться</div>
+        </div>
+
+        <div id="registerBlock" class="hidden">
+            <h2>Регистрация</h2>
+            <input type="email" id="regEmail" placeholder="Email">
+            <input type="text" id="regFirstName" placeholder="Имя">
+            <input type="text" id="regLastName" placeholder="Фамилия">
+            <input type="password" id="regPassword" placeholder="Пароль">
+            <button onclick="register()">Зарегистрироваться</button>
+            <div class="switch-link" onclick="showLogin()">Уже есть аккаунт? Войти</div>
+        </div>
+
+        <div id="profileBlock" class="hidden">
+            <h2>Профиль</h2>
+            <div class="profile-info" id="profileInfo"></div>
+            <div class="token-info" id="tokenInfo"></div>
+            <button onclick="logout()">Выйти</button>
+        </div>
+
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:3000';
+        let token = localStorage.getItem('token');
+
+        if (token) {
+            showProfile();
+            getProfile();
+        }
+
+        function showLogin() {
+            document.getElementById('loginBlock').classList.remove('hidden');
+            document.getElementById('registerBlock').classList.add('hidden');
+            document.getElementById('profileBlock').classList.add('hidden');
+
+            const result = document.getElementById('result');
+            result.style.display = 'none';
+            result.innerHTML = '';
+        }
+
+        function showRegister() {
+            document.getElementById('loginBlock').classList.add('hidden');
+            document.getElementById('registerBlock').classList.remove('hidden');
+            document.getElementById('profileBlock').classList.add('hidden');
+
+            const result = document.getElementById('result');
+            result.style.display = 'none';
+            result.innerHTML = '';
+        }
+
+        function showProfile() {
+            document.getElementById('loginBlock').classList.add('hidden');
+            document.getElementById('registerBlock').classList.add('hidden');
+            document.getElementById('profileBlock').classList.remove('hidden');
+        }
+
+        function showResult(data, isError = false) {
+            const result = document.getElementById('result');
+            result.style.display = 'block';
+            result.innerHTML = `<pre class="${isError ? 'error' : 'success'}">${JSON.stringify(data, null, 2)}</pre>`;
+        }
+
+        async function register() {
+            const email = document.getElementById('regEmail').value;
+            const first_name = document.getElementById('regFirstName').value;
+            const last_name = document.getElementById('regLastName').value;
+            const password = document.getElementById('regPassword').value;
+
+            try {
+                const response = await fetch(`${API_URL}/api/auth/register`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, first_name, last_name, password })
+                });
+                const data = await response.json();
+                
+                if (response.ok) {
+                    showResult({ success: 'Регистрация успешна!' });
+                    showLogin();
+                } else {
+                    showResult(data, true);
+                }
+            } catch (error) {
+                showResult({ error: error.message }, true);
+            }
+        }
+
+        async function login() {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            const result = document.getElementById('result');
+            result.style.display = 'none';
+            result.innerHTML = '';
+
+            try {
+                const response = await fetch(`${API_URL}/api/auth/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+                const data = await response.json();
+                
+                if (response.ok) {
+                    token = data.accessToken;
+                    localStorage.setItem('token', token);
+                    showProfile();
+                    getProfile();
+                } else {
+                    showResult(data, true);
+                }
+            } catch (error) {
+                showResult({ error: error.message }, true);
+            }
+        }
+
+        async function getProfile() {
+            try {
+                const response = await fetch(`${API_URL}/api/auth/me`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await response.json();
+                
+                if (response.ok) {
+                    document.getElementById('profileInfo').innerHTML = `
+                        <p><strong>E-mail:</strong> ${data.email}</p>
+                        <p><strong>Имя:</strong> ${data.first_name}</p>
+                        <p><strong>Фамилия:</strong> ${data.last_name}</p>
+                    `;
+                    document.getElementById('tokenInfo').innerHTML = `
+                        <strong>Токен:</strong><br>
+                        <small style="font-size: 12px;">${data.accessToken || token}</small>
+                    `;
+                } else {
+                    logout();
+                }
+            } catch (error) {
+                logout();
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('token');
+            token = null;
+            showLogin();
+            document.getElementById('profileInfo').innerHTML = '';
+            document.getElementById('tokenInfo').innerHTML = '';
+            const result = document.getElementById('result');
+            result.style.display = 'none';
+            result.innerHTML = '';
+        }
+    </script>
+</body>
+</html>
