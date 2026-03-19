@@ -499,7 +499,7 @@ function findProductOr404(id, res) {
 */
 
 app.post("/api/products", (req, res) => {
-    const { name, category, description, price} = req.body;
+    const { name, category, description, price, imageUrl} = req.body;
 
     if (!name || !category || !description || price === undefined) {
         return res.status(400).json({ error: "Название, категория, описание и цена обязательны!" });
@@ -509,7 +509,8 @@ app.post("/api/products", (req, res) => {
         name: name.trim(),
         category: category.trim(), 
         description: description.trim(), 
-        price: Number(price)
+        price: Number(price),
+        imageUrl: imageUrl || null
     };
 
     products.push(newProduct);
@@ -632,12 +633,13 @@ app.put("/api/products/:id", authMiddleware,(req, res) => {
         });
     }
 
-    const { name, category, description, price } = req.body;
+    const { name, category, description, price, imageUrl } = req.body;
 
     if (name !== undefined) product.name = name.trim();
     if (category !== undefined) product.category = category.trim();
     if (description !== undefined) product.description = description.trim();
     if (price !== undefined) product.price = Number(price);
+    if (imageUrl !== undefined) product.imageUrl = imageUrl;
 
     res.json(product);
 });

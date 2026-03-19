@@ -5,19 +5,19 @@ export default function ProductModal({ open, mode, initialProduct, onClose, onSu
     const [category, setCategory] = useState("");
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState("");
-
+    const [imageUrl, setImageUrl] = useState("");
     useEffect(() => {
         if (!open) return;
         setName(initialProduct?.name ?? "");
         setCategory(initialProduct?.category ?? "");
         setDescription(initialProduct?.description ?? "");
         setPrice(initialProduct?.price != null ? String(initialProduct.price) : "");
+        setImageUrl(initialProduct?.imageUrl ?? "");
     }, [open, initialProduct]);
 
     if (!open) return null;
 
     const title = mode === "edit" ? "Редактирование товара" : "Создание товара";
-    
     const handleSubmit = (e) => {
         e.preventDefault();
         const trimmedName = name.trim();
@@ -47,7 +47,7 @@ export default function ProductModal({ open, mode, initialProduct, onClose, onSu
         formData.append('category', trimmedCategory);
         formData.append('description', trimmedDescription);
         formData.append('price', parsedPrice);
-        
+        formData.append('imageUrl', imageUrl.trim());
         if (initialProduct?.id) {
             formData.append('id', initialProduct.id);
         }
@@ -98,7 +98,15 @@ export default function ProductModal({ open, mode, initialProduct, onClose, onSu
                             autoFocus
                         />
                     </label>
-
+                    <label className="label">
+                        URL фото  
+                        <input
+                            className="input"
+                            value={imageUrl}
+                            onChange={(e) => setImageUrl(e.target.value)}
+                            placeholder="https://example.com/image.jpg"
+                        />
+                    </label>
                     <label className="label">
                         Цена  
                         <input

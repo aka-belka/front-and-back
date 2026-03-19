@@ -249,6 +249,9 @@ body {
 
 .productMain {
     margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
 }
 
 
@@ -666,4 +669,45 @@ select.input {
 
 .profile-card .btn:hover {
     background: rgba(99, 234, 241, 0.3);
+}
+
+.product-image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+}
+
+.product-image {
+    max-width: 100%;
+    max-height: 300px;
+    object-fit: contain;
+    border-radius: 4px;
+}
+
+.product-image-error {
+    text-align: center;
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+    background: rgba(255, 0, 0, 0.1);
+    border-radius: 8px;
+    color: #ff6b6b;
+}
+
+.product-thumbnail {
+    margin: 1rem 0;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0.5rem;
+    border-radius: 4px;
+}
+
+.product-thumbnail img {
+    max-width: 100%;
+    max-height: 200px;
+    object-fit: contain;
+    border-radius: 4px;
 }

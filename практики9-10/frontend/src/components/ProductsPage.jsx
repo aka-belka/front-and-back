@@ -60,7 +60,8 @@ export default function ProductsPage({ onLogout }) {
                 name: formData.get('name'),
                 category: formData.get('category'),
                 description: formData.get('description'),
-                price: Number(formData.get('price'))
+                price: Number(formData.get('price')),
+                imageUrl: formData.get('imageUrl')
             };
 
             if (modalMode === 'create') {
@@ -103,10 +104,23 @@ export default function ProductsPage({ onLogout }) {
                             style={{ cursor: 'pointer' }}
                         >
                             <div className="productMain">
-                                <div className="productName">{product.name}</div>
-                                <div className="productCategory">{product.category}</div>
-                                <div className="productDescription">{product.description}</div>
-                                <div className="productPrice">{product.price} ₽</div>
+                                <div>
+                                    <div className="productName">{product.name}</div>
+                                    <div className="productCategory">{product.category}</div>
+                                    <div className="productDescription">{product.description}</div>
+                                    <div className="productPrice">{product.price} ₽</div>
+                                </div>
+
+                                {product.imageUrl && (
+                                    <div className="product-thumbnail">
+                                        <img 
+                                            src={product.imageUrl} 
+                                            alt={product.name}
+                                            onError={(e) => e.target.style.display = 'none'}
+                                            style={{ maxWidth: '100%', maxHeight: '100px', objectFit: 'contain' }}
+                                        />
+                                    </div>
+                                )}
                             </div>
 
                             <div className="productActions" onClick={(e) => e.stopPropagation()}>

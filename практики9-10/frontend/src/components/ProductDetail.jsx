@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 export default function ProductDetailModal({ open, product, onClose, onEdit, onDelete }) {
+    const [imageError, setImageError] = useState(false);
     if (!open || !product) return null;
 
     const handleDelete = () => {
@@ -14,7 +15,14 @@ export default function ProductDetailModal({ open, product, onClose, onEdit, onD
         onEdit(product);
         onClose();
     };
-
+    const isValidUrl = (url) => {
+        try {
+            new URL(url);
+            return true;
+        } catch {
+            return false;
+        }
+    };
     return (
         <div className="backdrop" onClick={onClose}>
             <div className="modal modal--detail" style={{background: "rgb(2, 33, 33)"}}onClick={(e) => e.stopPropagation()}>
@@ -33,7 +41,26 @@ export default function ProductDetailModal({ open, product, onClose, onEdit, onD
                         <span className="detail-label">Название:</span>
                         <span className="detail-value" style={{color:"white"}}>{product.name}</span>
                     </div>
-                    
+                    {product.imageUrl && isValidUrl(product.imageUrl) ? (
+                        <div className="product-image-container">
+                            <img 
+                                src={product.imageUrl} 
+                                alt={product.name}
+                                className="product-image"
+                                onError={(e) => {
+                                    console.log('Ошибка загрузки изображения:', product.imageUrl);
+                                    setImageError(true);
+                                }}
+                                onLoad={() => console.log('Изображение загружено:', product.imageUrl)}
+                            />
+                        </div>
+                    ) : product.imageUrl ? (
+                        <div className="product-image-error">
+                            Не удалось загрузить изображение
+                        </div>
+                    ) : (
+                        <div className="product-image-error">Нет фото</div>
+                    )}
                     <div className="detail-row">
                         <span className="detail-label">Категория:</span>
                         <span className="detail-value" style={{color:"white"}}>{product.category}</span>
