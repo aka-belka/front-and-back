@@ -1,5 +1,3 @@
-Вот ваш README.md, оформленный в стиле указанного репозитория, но с вашим текстом:
-
 ```markdown
 # front-and-back
 
@@ -8,7 +6,7 @@
 
 ---
 
-##  Структура проекта
+## Структура проекта
 
 ```
 front-and-back/
@@ -21,23 +19,23 @@ front-and-back/
 │   ├── store/     
 │   └── users/
 ├── практика5/          # Задание 5 — REST API + React-клиент
-│   ├── frontend/     # React + Vite (фронтенд)
-│   └── backend/     # Express (бэкенд)
-├── практики7-8/          # Задание 7-8 — Node.js + JWT-авторизация
-│   ├── frontend/     # React + Vite (фронтенд)
-│   └── backend/     # Express (бэкенд)
-├── практики9-10/          # Задание 9-10 — Refresh-токены, React-клиент + Axios Interceptors
-│   ├── frontend/     # React + Vite (фронтенд)
-│   └── backend/     # Express (бэкенд)
+│   ├── frontend/       # React + Vite (фронтенд)
+│   └── backend/        # Express (бэкенд)
+├── практики7-8/        # Задание 7-8 — Node.js + JWT-авторизация
+│   ├── frontend/       # React + Vite (фронтенд)
+│   └── backend/        # Express (бэкенд)
+├── практики9-10/       # Задание 9-10 — Refresh-токены, React-клиент + Axios Interceptors
+│   ├── frontend/       # React + Vite (фронтенд)
+│   └── backend/        # Express (бэкенд)
 ├── практика11/         # Задание 11 — Роли и права доступа
-│   ├── frontend/     # React + Vite (фронтенд)
-│   └── backend/     # Express (бэкенд)
+│   ├── frontend/       # React + Vite (фронтенд)
+│   └── backend/        # Express (бэкенд)
 └── README.md
 ```
 
 ---
 
-##  Практические задания
+## Практические задания
 
 **Практическое задание 1 — Вёрстка страницы магазина**  
 Вёрстка страницы магазина
@@ -65,7 +63,7 @@ Express-сервер с JWT-авторизацией: регистрация, л
 
 ---
 
-##  Запуск
+## Запуск
 
 ```bash
 # Терминал 1 — Бэкенд
@@ -82,3 +80,5 @@ npm start
 ```
 
 ---
+
+```
