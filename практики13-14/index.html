@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="manifest" href="./manifest.json">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#302a24">
+    <link rel="apple-touch-icon" href="./icons/apple-touch-icon-120x120.png">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black translucent">
+    <title>Заметки</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="./icons/favicon.ico" sizes="16x16" type="image/ico">
+</head>
+
+<body>
+    <div class="title">
+        <h1>Заметки</h1>
+    </div>
+    <form id="note-form" class="row">
+        <input class="inp enter" type="text" id="note-input" placeholder="Введите заметку" required>
+        <button class="btn add" type="submit">Добавить</button>
+    </form>
+    <div id="notes-list" class="notes_list"></div>
+    <script src="app.js"></script>
+</body>
+
+</html>

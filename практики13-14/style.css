@@ -1,0 +1,100 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    background-color: rgb(79, 70, 60);
+}
+.title{
+    color: white;
+    text-align: center;
+    margin: 30px;
+    font-size: 2.5rem;
+}
+.row{
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    margin-bottom: 30px;
+}
+.inp {
+    padding: 12px 20px;
+    font-size: 16px;
+    border: 2px dashed white;
+    outline: none;
+    width: 300px;
+    background: none;
+    transition: all 0.3s ease;
+    color: white;
+}
+.inp::placeholder {
+    color: white;
+    opacity: 0.7;
+}
+.inp:hover {
+    background:rgba(48, 40, 31, 0.533);
+    transform: scale(1.02);
+}
+
+.inp:focus {
+    background: rgba(48, 40, 31, 0.533);
+    transform: scale(1.02);
+}
+.btn {
+    padding: 12px 30px;
+    font-size: 16px;
+    border: none;
+    font-weight: bold;
+    transition: all 0.2s ease;
+}
+.add {
+    background: antiquewhite;
+    color: rgb(79, 70, 60) ;
+}
+.add:hover {
+    transform: scale(1.02);
+    background-color: rgb(203, 193, 179);
+}
+.notes_list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 0 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: center;
+}
+
+.note-card {
+    background-color: antiquewhite;
+    padding: 20px;
+    height: 100px;     
+    word-wrap: break-word;      
+    word-break: break-word;   
+    display: block;
+    justify-content: center;
+    align-items: center;
+    overflow-y: auto;
+    transition: all 0.3s ease;         
+}
+.note-text {
+    font-size: 16px;
+    color: rgb(79, 70, 60);
+    word-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
+    display: block;
+    text-align: center;
+}
+
+.note-card:hover{
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+    background-color: #ffe4c4;
+}
+
+.note-icon-img {
+    width: 25px;
+    height: 25px;
+}
