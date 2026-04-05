@@ -1,0 +1,501 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background-color: rgb(79, 70, 60);
+    display: flex;
+    flex-direction: column;
+}
+main#app-content {
+    flex: 1;
+}
+header{
+    display: flex;
+    background-color:  rgb(48, 42, 36);
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    align-items: stretch;
+}
+
+.title{
+    color: white;
+    text-align: center;
+    margin: 15px 30px;
+    font-size: 0.7rem;
+}
+.home-content-title{
+    color: white;
+    text-align: center;
+    margin: 30px;
+    font-size: 2.5rem;
+}
+.row{
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    margin-bottom: 30px;
+}
+.inp {
+    padding: 12px 20px;
+    font-size: 16px;
+    border: 2px dashed white;
+    outline: none;
+    width: 300px;
+    background: none;
+    transition: all 0.3s ease;
+    color: white;
+}
+.inp::placeholder {
+    color: white;
+    opacity: 0.7;
+}
+.inp:hover {
+    background:rgba(48, 40, 31, 0.533);
+    transform: scale(1.02);
+}
+
+.inp:focus {
+    background: rgba(48, 40, 31, 0.533);
+    transform: scale(1.02);
+}
+.btn {
+    padding: 12px 30px;
+    font-size: 16px;
+    border: none;
+    transition: all 0.2s ease;
+}
+.add {
+    background: antiquewhite;
+    color: rgb(79, 70, 60) ;
+    font-weight: bold;
+}
+.add:hover {
+    transform: scale(1.02);
+    background-color: #ffe4c4;
+}
+.notes_list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 0 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: center;
+}
+
+.note-card {
+    background-color: antiquewhite;
+    padding: 30px 30px 0px;
+    height: 100px;     
+    word-wrap: break-word;      
+    word-break: break-word;   
+    display: block;
+    justify-content: center;
+    align-items: center;
+    overflow-y: auto;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.note-text {
+    font-size: 16px;
+    color: rgb(79, 70, 60);
+    word-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
+    display: block;
+    text-align: center;
+}
+
+.note-card:hover{
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+    background-color: #ffe4c4;
+}
+
+.note-icon-img {
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    top: 12px;
+    left: 12px;
+}
+
+.tabs{
+    display: flex;
+    justify-content: center;
+}
+
+.home-btn, .about-btn{
+    background: rgba(255, 255, 255, 0.15);
+    background: none;
+    color: white;
+    padding: 5px 32px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.home-btn:hover, .about-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+.home-btn.active, .about-btn.active {
+    background: antiquewhite;
+    color: rgb(79, 70, 60);
+    border-color: antiquewhite;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.about-content{
+    background-color: antiquewhite;
+    padding: 40px 30px 40px;
+    max-width: 600px;
+    margin: 40px auto;
+    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.2);
+    color: rgb(79, 70, 60);
+}
+
+.about-content h2 {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.about-content p {
+    margin: 12px 0;
+    line-height: 1.5;
+    border-left: 4px solid rgb(79, 70, 60);
+    padding-left: 12px;
+}
+
+.text-error {
+    text-align: center;
+    color: #ff6b6b;
+    background-color: rgba(255, 107, 107, 0.1);
+    border-left: 4px solid #ff6b6b;
+    padding: 15px 20px;
+    font-size: 16px;
+    font-weight: 500;
+    margin: 20px auto;
+    max-width: 400px;
+}
+
+.about-content h3 {
+    margin: 20px 0 10px;
+    border-left: 4px solid rgb(79, 70, 60);
+    padding-left: 12px;
+}
+
+.about-content ul {
+    list-style: none;
+    padding: 0;
+}
+
+.about-content li {
+    padding: 6px 0 6px 28px;
+    position: relative;
+}
+
+footer {
+    text-align: center;
+    padding: 15px;
+    color: antiquewhite;
+    background-color:  rgb(48, 42, 36);
+    font-size: 0.8rem;
+    margin-top: auto;
+}
+
+.notify-buttons{
+    display: flex;
+    justify-content: center;
+}
+.notify-icon{
+    width: 18px;
+    height: 18px;
+    transform: translateY(4px);
+}
+.button {
+    padding: 5px 32px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
+    gap: 8px;
+}
+
+.success, .error {
+    background: none;
+    color: white;
+}
+
+.success:hover, .error:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+
+.button:active {
+    transform: translateY(0);
+}
+
+
+.note-card.completed {
+    background-color: #8b8b7a;
+    opacity: 0.7;
+}
+
+.note-card.completed .note-text {
+    text-decoration: line-through;
+    color: #2c2c2c;
+}
+
+.note-icon-right {
+    width: 26px;
+    height: 26px;
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 10;
+    padding: 4px;
+}
+
+.action-panel {
+    position: absolute;
+    background-color: rgb(48, 42, 36);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 25px 12px 12px;
+    z-index: 1000;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    min-width: 160px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.action-panel.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.action-btn {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.action-btn:hover {
+    transform: scale(1.05);
+    background: #9e9e9e;
+    color: white;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1100;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: antiquewhite;
+    padding: 25px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.modal-content h3 {
+    color: rgb(79, 70, 60);
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.modal-content textarea {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 2px dashed rgb(79, 70, 60);
+    background: none;
+    resize: vertical;
+    box-sizing: border-box;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 120px;
+    margin-top: 20px;
+}
+
+.modal-btn {
+    padding: 10px 25px;
+    border: none;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.modal-btn.save {
+    background: rgb(79, 70, 60);
+    color: white;
+}
+
+.modal-btn.save:hover {
+    background: rgb(106, 96, 84);
+    transform: scale(1.02);
+}
+
+.modal-btn.cancel {
+    background: #6d391c;
+    color: white;
+}
+
+.modal-btn.cancel:hover {
+    background: #7c4f37;
+    transform: scale(1.02);
+}
+.action-close-btn {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 22px;
+    cursor: pointer;
+    padding: 0 6px;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.action-close-btn:hover {
+    transform: scale(1.1);
+}
+
+.reminder-form {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    background-color: none;
+    padding: 15px 20px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.reminder-input {
+    padding: 12px 16px;
+    font-size: 16px;
+    border: 2px dashed white;
+    outline: none;
+    background: none;
+    transition: all 0.3s ease;
+    color: white;
+    flex: 2;
+    min-width: 180px;
+}
+
+.reminder-datetime {
+    padding: 12px 16px;
+    font-size: 14px;
+    border: 2px dashed white;
+    outline: none;
+    background: none;
+    transition: all 0.3s ease;
+    color: white;
+    flex: 1;
+    min-width: 200px;
+}
+
+.reminder-datetime::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    cursor: pointer;
+}
+
+.reminder-input::placeholder,
+.reminder-datetime::placeholder {
+    color: white;
+    opacity: 0.7;
+}
+
+.reminder-input:hover,
+.reminder-datetime:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(1.02);
+}
+
+.reminder-input:focus,
+.reminder-datetime:focus {
+    background: rgba(255, 255, 255, 0.15);
+    transform: scale(1.02);
+}
+
+.reminder-btn {
+    padding: 12px 24px;
+    font-weight: 600;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: antiquewhite;
+    color: rgb(79, 70, 60);
+    flex: 0 0 auto;
+}
+
+.reminder-btn:hover {
+    transform: scale(1.02);
+    background-color: #ffe4c4;
+}
+
+.note-reminder {
+    display: inline-block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 11px;
+    color: #f44336;
+    background-color: rgba(244, 67, 54, 0.1);
+    padding: 4px 10px;
+    margin-top: 8px;
+    border-left: 3px solid #f44336;
+}
+.reminder-icon{
+     width: 14px;
+    height: 14px;
+    margin-right: 6px;
+    vertical-align: middle;
+    filter: invert(35%) sepia(90%) saturate(1000%) hue-rotate(340deg);
+}
+
+.btn-icon{
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+    vertical-align: middle;
+    filter: brightness(0) saturate(100%) invert(23%) sepia(10%) saturate(500%) hue-rotate(10deg);
+}

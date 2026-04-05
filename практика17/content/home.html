@@ -1,0 +1,19 @@
+<div class="home-content">
+    <div class="home-content-title">
+        <h1>Заметки</h1>
+    </div>
+    <form id="note-form" class="row">
+        <input class="inp enter" type="text" id="note-input" placeholder="Введите текст" required>
+        <button class="btn add" type="submit">Добавить</button>
+    </form>
+
+    <form id="reminder-form" class="reminder-form" >
+        <input type="text" id="reminder-text" class="reminder-input" placeholder="Текст напоминания" required>
+        <input type="datetime-local" id="reminder-time" class="reminder-datetime" required>
+        <button type="submit" class="reminder-btn">
+            <img src="./icons/alarm-clock.png" alt="будильник" class="btn-icon">
+            Добавить с напоминанием
+        </button>
+    </form>
+    <div id="notes-list" class="notes_list"></div>
+</div>

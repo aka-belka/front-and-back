@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#302a24">
+    <link rel="apple-touch-icon" href="/icons/icon-120x120.png">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black translucent">
+    <title>Заметки (13-18)</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="icons/favicon.ico" sizes="16x16" type="image/ico">
+</head>
+
+<body>
+    <header >
+    <div class="title">
+        <h1>NOTES</h1>
+    </div>
+    <nav class="tabs is-center">
+        <button id="home-btn" class="btn home-btn">Главная</button>
+        <button id="about-btn" class="btn about-btn">О приложении</button>
+    </nav>
+    <div class="notify-buttons">
+        <button id="enable-push" class="button success">
+            <img src="./icons/alarm.png" alt="иконка" class="notify-icon">
+            Включить уведомления
+        </button>
+        <button id="disable-push" class="button error" style="display:none;">
+            <img src="./icons/disable-alarm.png" alt="иконка" class="notify-icon">
+            Отключить уведомления
+        </button>
+    </div>
+    </header>
+
+    <main id="app-content" class="container" >
+    </main>
+    <footer >© 2026 Мои заметки</footer>
+
+    <div id="edit-modal" class="modal">
+        <div class="modal-content">
+            <h3>Редактировать заметку</h3>
+            <textarea id="edit-text" rows="3" placeholder="Введите новый текст..."></textarea>
+            <div class="modal-buttons">
+                <button id="cancel-edit" class="modal-btn cancel">Отмена</button>
+                <button id="save-edit" class="modal-btn save">Сохранить</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="action-panel" class="action-panel">
+        <button id="action-close" class="action-close-btn">×</button>
+        <button id="action-edit" class="action-btn edit">Редактировать</button>
+        <button id="action-complete" class="action-btn complete">Выполнено</button>
+        <button id="action-delete" class="action-btn delete">Удалить</button>
+    </div>
+    <script src="socket.io.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
