@@ -85,7 +85,6 @@ io.on('connection', (socket) => {
                     console.error('Push error:', err));
             });
 
-            reminders.delete(id);
         }, delay);
 
         reminders.set(id, { timeoutId, text, reminderTime });
@@ -132,14 +131,21 @@ app.post('/snooze', (req, res) => {
 
         reminders.delete(reminderId);
     }, newDelay);
-
+    const newReminderTime = Date.now() + newDelay;
     reminders.set(reminderId, {
         timeoutId: newTimeoutId,
         text: reminder.text,
-        reminderTime: Date.now() + newDelay
+        reminderTime: newReminderTime
     });
-
-    res.status(200).json({ message: 'Reminder snoozed for 5 minutes' });
+    io.emit('reminderSnoozed', {
+        id: reminderId,
+        newReminderTime: newReminderTime,
+        text: reminder.text
+    });
+    res.status(200).json({ 
+        message: 'Reminder snoozed for 5 minutes',
+        newReminderTime: newReminderTime 
+    });
 });
 
 const PORT = 3001;

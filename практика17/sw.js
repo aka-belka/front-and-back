@@ -108,13 +108,28 @@ self.addEventListener('push', (event) => {
 });
 
 self.addEventListener('notificationclick', (event) => {
-const notification = event.notification;
+    const notification = event.notification;
     const action = event.action;
     if (action === 'snooze') {
         const reminderId = notification.data.reminderId;
         event.waitUntil(
             fetch(`/snooze?reminderId=${reminderId}`, { method: 'POST' })
-                .then(() => notification.close())
+                .then(response => response.json())
+                .then(data => {
+                    if (data.newReminderTime) {
+                        clients.matchAll({ type: 'window', includeUncontrolled: true })
+                            .then(clientList => {
+                                clientList.forEach(client => {
+                                    client.postMessage({
+                                        type: 'UPDATE_REMINDER',
+                                        reminderId: reminderId,
+                                        newReminderTime: data.newReminderTime
+                                    });
+                                });
+                            });
+                    }
+                    notification.close();
+                })
                 .catch(err => console.error('Snooze failed:', err))
         );
     } else {

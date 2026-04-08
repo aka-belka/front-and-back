@@ -323,7 +323,16 @@ async function unsubscribeFromPush() {
         console.log('Отписка выполнена');
     }
 }
-
+function updateReminderInCard(noteId, newReminderTime) {
+    const card = document.querySelector(`.note-card[data-id="${noteId}"]`);
+    if (card) {
+        const reminderDiv = card.querySelector('.note-reminder');
+        const date = new Date(newReminderTime);
+        if (reminderDiv) {
+            reminderDiv.innerHTML = `<img src="./icons/alarm-clock.png" alt="будильник" class="reminder-icon"> ${date.toLocaleString()}`;
+        }
+    }
+}
 if (socket) {
     socket.on('taskAdded', (task) => {
         console.log('Задача от другого клиента:', task);
@@ -344,6 +353,19 @@ if (socket) {
         `;
         document.body.appendChild(notification);
         setTimeout(() => notification.remove(), 3000);
+    });
+
+    socket.on('reminderSnoozed', (data) => {
+        console.log('Напоминание отложено:', data);
+        let notes = JSON.parse(localStorage.getItem('notes') || '[]');
+        const note = notes.find(n => n.id === data.id);
+        if (note) {
+            note.reminder = data.newReminderTime;
+            localStorage.setItem('notes', JSON.stringify(notes));
+            updateReminderInCard(data.id, data.newReminderTime);
+        } else {
+            console.log('❌ Заметка не найдена!');
+        }
     });
 } else {
     console.log('Socket не доступен (оффлайн режим)');
