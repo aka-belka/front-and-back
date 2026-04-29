@@ -8,8 +8,6 @@ mongoose.connect('mongodb://ValeraMongoAdmin:1love_you))@localhost:27017/admin')
 
 app.use(express.json());
 
-let counter = 1;
-
 const userSchema = new mongoose.Schema({
     id: { type: Number, unique: true},
     first_name: { type: String, required: true },
