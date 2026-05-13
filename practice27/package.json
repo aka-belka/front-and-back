@@ -1,0 +1,17 @@
+{
+  "name": "practice27",
+  "version": "1.0.0",
+  "description": "",
+  "main": "setup.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "amqplib": "^2.0.1",
+    "express": "^5.2.1"
+  }
+}
